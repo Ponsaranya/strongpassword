@@ -1,0 +1,35 @@
+#python strong password
+
+def minimumNumber(n, password):
+    numbers = "0123456789"
+    lower_case = "abcdefghijklmnopqrstuvwxyz"
+    upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    special_characters = "!@#$%^&*()-+"
+
+    # Initialize counters for missing criteria
+    missing_criteria = 0
+    
+    # Check each criterion and increment the counter if missing
+    if not any(char.isdigit() for char in password):
+        missing_criteria += 1
+    if not any(char.islower() for char in password):
+        missing_criteria += 1
+    if not any(char.isupper() for char in password):
+        missing_criteria += 1
+    if not any(char in special_characters for char in password):
+        missing_criteria += 1
+    
+    # Calculate the number of characters needed to fulfill the criteria
+    if n < 6:
+        # If password length is less than 6, we need to add characters
+        return max(6 - n, missing_criteria)
+    else:
+        # If password length is already 6 or more, we need to add missing criteria
+        return missing_criteria
+
+# Sample Input
+n = int(input().strip())
+password = input().strip()
+
+# Output the minimum number of characters to add
+print(minimumNumber(n, password))
